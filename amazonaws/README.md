@@ -2,6 +2,6 @@
 ## Công cụ
 https://code.google.com/archive/p/paping/
 
-**US East (N. Virginia)
+**US East (N. Virginia)**
 
 ![Screenshot](ping_East.JPG)

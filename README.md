@@ -1,3 +1,1 @@
-# Game-ban-tau
-C
-sadadasd
+# Game bắn tàu

@@ -1,3 +1,7 @@
+# Cách kết nối vào máy amazonaws
+
+https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/putty.html
+
 # Kiểm tra cổng TCP, mô phỏng chức năng của ping
 ## Công cụ
 https://code.google.com/archive/p/paping/

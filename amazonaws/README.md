@@ -30,4 +30,5 @@ Options:
 ![Screenshot](ping_East.JPG)
 
 **Asia Pacific (Singapore)**
+
 ![Screenshot](ping_asia.JPG)

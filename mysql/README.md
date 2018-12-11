@@ -12,7 +12,7 @@ XAMPP là một bản phân phối Apache dễ cài đặt có chứa MariaDB, P
 
 https://www.apachefriends.org/download.html
 
-### Một số lệnh commands sử dụng MySQL
+## Một số lệnh commands sử dụng MySQL
 
 Access monitor: `mysql -u [username] -p;` (will prompt for password)
 

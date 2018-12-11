@@ -1,4 +1,4 @@
-# Cách kết nối vào máy amazonaws
+# Cách kết nối vào máy amazonaws bằng PuTTY
 
 https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/putty.html
 

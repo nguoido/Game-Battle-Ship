@@ -31,4 +31,3 @@ Options:
 
 **Asia Pacific (Singapore)**
 
-![Screenshot](ping_asia.JPG)

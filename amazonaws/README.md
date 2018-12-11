@@ -1,6 +1,6 @@
 # Cách kết nối vào máy amazonaws bằng PuTTY
 
-https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/putty.html
+https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/AccessingInstances.html
 
 # Kiểm tra cổng TCP, mô phỏng chức năng của ping
 ## Công cụ

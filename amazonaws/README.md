@@ -23,6 +23,11 @@ Options:
  -t, --timeout  timeout in milliseconds (default 1000)
  -c, --count N  set number of checks to N
  ```
+ Địa điểm: Việt Nam
+ 
 **US East (N. Virginia)**
 
 ![Screenshot](ping_East.JPG)
+
+**Asia Pacific (Singapore)**
+![Screenshot](ping_asia.JPG)

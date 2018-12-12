@@ -56,9 +56,9 @@
 
 ### Tập lệnh AT Command
 
-AT &nbsp; Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
+AT&nbsp;&nbsp;&nbsp;&nbsp;Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
 
-AT+RST					Khởi động lại module	 						`AT+RST`
+AT+RST&nbsp;&nbsp;&nbsp;  Khởi động lại module	 						`AT+RST`
 
 AT+GMR					Truy vấn phiên bản Firmware 	 				`AT+GMR`
 

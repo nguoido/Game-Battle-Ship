@@ -55,14 +55,12 @@
 * MCU gửi AT + CMD thông qua UART để điều khiển ESP8266
 
 ### Tập lệnh AT Command
-<pre>
-AT						Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
+
+AT &nbsp; Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
 
 AT+RST					Khởi động lại module	 						`AT+RST`
 
 AT+GMR					Truy vấn phiên bản Firmware 	 				`AT+GMR`
-
-
 
 AT+CWMODE = <mode>		Cài đặt chế độ	1 = Station 2 = Access Point  3 = Both							`AT+CWMODE=1`
 
@@ -93,4 +91,3 @@ AT+CIPSEND		Dùng để gửi dữ liệu cần send xuống ESP8266  `AT+CIPSEN
 															`AT+CIPSEND=1` gửi chuỗi có độ dài là 1
 
 AT+CIPSTART     Kết nối vào 1 TCP/UDP server của 1 server trên internet    `"AT+CIPSTART="TCP","34.205.32.160",3333`
-</pre>

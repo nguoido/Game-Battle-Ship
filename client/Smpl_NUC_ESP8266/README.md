@@ -25,7 +25,7 @@
 ## GPIO Driver và thanh ghi
 
 
-	DrvGPIO_Open() 
+* DrvGPIO_Open() 
 
 	Prototype: int32_t DrvGPIO_Open(Port,Pin,Mode)
 	Input:
@@ -45,7 +45,7 @@
 	DrvGPIO_Open(E_GPA,1,E_IO_QUASI); // Cấu hình chân A1 chức năng vào ra.
 
 	
-	DrvGPIO_SetBit();
+* DrvGPIO_SetBit();
 	Prototype: int32_t DrvGPIO_SetBit(Port, Pin).
 	Input : 
 	Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.
@@ -59,7 +59,7 @@
 	Ví dụ:
 	DrvGPIO_SetBit(E_GPA,1); // Set chân A0 lên 1.
 	
-	DrvGPIO_ClrBit()
+* DrvGPIO_ClrBit()
 	Prototype: int32_t DrvGPIO_ClrBit(Port, Pin);
 	Input : 
 	Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.

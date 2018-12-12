@@ -173,9 +173,9 @@ void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32
 		
 		// Cach 2
 		/*
-			//uart_sendStr((unsigned char*)"AT+CIPSEND=1\r\n");
-			//DrvSYS_Delay(2);
-			//uart_sendStr((unsigned char*)"r");
+			uart_sendStr((unsigned char*)"AT+CIPSEND=1\r\n");
+			DrvSYS_Delay(2);
+			uart_sendStr((unsigned char*)"r");
 		*/
 		
 		DrvUART_Write(UART_PORT0,(unsigned char*)AT_CIPSEND_1, 16);

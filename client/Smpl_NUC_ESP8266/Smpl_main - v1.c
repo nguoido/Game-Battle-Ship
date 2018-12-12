@@ -57,10 +57,10 @@ void UART_INT_HANDLE(void)
 		}
 		else if(flag == 1)
 		{
-			 buf_Mac[i] = bInChar[0];
-			 i++;
+			buf_Mac[i] = bInChar[0];
+			i++;
 		}
-
+		
 	}
 }
 
@@ -80,10 +80,10 @@ int main()
 	delay_time(5);
 	DrvUART_Write(UART_PORT0, (unsigned char*)AT_CWJAP, strlen(AT_CWJAP));
 	delay_time(30);
-
+	
 	
 	DrvUART_EnableInt(UART_PORT0, DRVUART_RDAINT, (PFN_DRVUART_CALLBACK *)UART_INT_HANDLE); 
-
+	
 	DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPAPMAC, strlen(AT_CIPAPMAC));
 	delay_time(5);
 	
@@ -119,9 +119,9 @@ void uart_sendStr(uint8_t *str)
 {
 	while(*str)
 	{
-			DrvUART_Write(UART_PORT0,str,1);
-			DrvSYS_Delay(20000);
-			str++;
+		DrvUART_Write(UART_PORT0,str,1);
+		DrvSYS_Delay(20000);
+		str++;
 	}
 }
 
@@ -149,20 +149,20 @@ void uartConfig(void){
 void interruptConfig(){	
 	DrvGPIO_Open(E_GPA,12,E_IO_INPUT);
 	DrvGPIO_Open(E_GPA,13,E_IO_INPUT);
-  DrvGPIO_EnableInt(E_GPA, 12, E_IO_RISING, E_MODE_EDGE);		//BTN OK
-  DrvGPIO_EnableInt(E_GPA, 13, E_IO_RISING, E_MODE_EDGE);		//BTN CANCLE
+	DrvGPIO_EnableInt(E_GPA, 12, E_IO_RISING, E_MODE_EDGE);		//BTN OK
+	DrvGPIO_EnableInt(E_GPA, 13, E_IO_RISING, E_MODE_EDGE);		//BTN CANCLE
 	DrvGPIO_EnableInt(E_GPC, 1, E_IO_RISING, E_MODE_EDGE);		//BTN DOWN
-  DrvGPIO_EnableInt(E_GPC, 2, E_IO_RISING, E_MODE_EDGE);		//BTN RIGHT
+	DrvGPIO_EnableInt(E_GPC, 2, E_IO_RISING, E_MODE_EDGE);		//BTN RIGHT
 	DrvGPIO_EnableInt(E_GPC, 3, E_IO_RISING, E_MODE_EDGE);		//BTN LEFT
-  DrvGPIO_EnableInt(E_GPD, 7, E_IO_RISING, E_MODE_EDGE);		//BTN UP
-  DrvGPIO_SetDebounceTime(5, E_DBCLKSRC_10K);
+	DrvGPIO_EnableInt(E_GPD, 7, E_IO_RISING, E_MODE_EDGE);		//BTN UP
+	DrvGPIO_SetDebounceTime(5, E_DBCLKSRC_10K);
 	DrvGPIO_EnableDebounce(E_GPA, 12);
 	DrvGPIO_EnableDebounce(E_GPA, 13);
 	DrvGPIO_EnableDebounce(E_GPC, 1);
 	DrvGPIO_EnableDebounce(E_GPC, 2);
 	DrvGPIO_EnableDebounce(E_GPC, 3);
 	DrvGPIO_EnableDebounce(E_GPD, 7);
-  DrvGPIO_SetIntCallback(GPIOAB_INT_CallBack, GPIOCDE_INT_CallBack);
+	DrvGPIO_SetIntCallback(GPIOAB_INT_CallBack, GPIOCDE_INT_CallBack);
 }
 
 void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32_t GPE_IntStatus)
@@ -187,13 +187,13 @@ void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32
 		uart_sendStr((unsigned char*)"AT+CIPSEND=1\r\n");
 		DrvSYS_Delay(2);
 		uart_sendStr((unsigned char*)"l");
-	
+		
 	}
 	if ((GPD_IntStatus>>7) & 0x01){
 		uart_sendStr((unsigned char*)"AT+CIPSEND=1\r\n");
 		DrvSYS_Delay(2);
 		uart_sendStr((unsigned char*)"u");
-		}
+	}
 }
 
 void GPIOAB_INT_CallBack(uint32_t GPA_IntStatus, uint32_t GPB_IntStatus)

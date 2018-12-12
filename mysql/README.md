@@ -15,45 +15,42 @@ https://www.apachefriends.org/download.html
 
 ## Một số lệnh commands sử dụng MySQL
 
-Access monitor: `mysql -u [username] -p;` (will prompt for password)
+Quyền truy cập MySQL: `mysql -u [username] -p;` (will prompt for password)
 
-Show all databases: `show databases;`
+Hiện thị các database: `show databases;`
 
-Access database: `mysql -u [username] -p [database]` (will prompt for password)
+Truy cập database: `mysql -u [username] -p [database]`
 
-Create new database: `create database [database];`
+Tạo database: `create database [database];`
 
-Select database: `use [database];`
+Lựa chọn database: `use [database];`
 
-Determine what database is in use: `select database();`
+Xác định cơ sở dữ liệu nào đang được sử dụng: `select database();`
 
-Show all tables: `show tables;`
+Hiển thị tất cả các bảng: `show tables;`
 
-Show table structure: `describe [table];`
+Hiển thị cấu trúc bảng: `describe [table];`
 
-List all indexes on a table: `show index from [table];`
+Liệt kê tất cả các chỉ mục trên một bảng: `show index from [table];`
 
-Create new table with columns: `CREATE TABLE [table] ([column] VARCHAR(120), [another-column] DATETIME);`
+Tạo bảng mới với các cột: `CREATE TABLE [table] ([column] VARCHAR(120), [another-column] DATETIME);`
 
-Adding a column: `ALTER TABLE [table] ADD COLUMN [column] VARCHAR(120);`
+Thêm một cột: `ALTER TABLE [table] ADD COLUMN [column] VARCHAR(120);`
 
-Adding a column with an unique, auto-incrementing ID: `ALTER TABLE [table] ADD COLUMN [column] int NOT NULL AUTO_INCREMENT PRIMARY KEY;`
+Thêm một cột với một duy nhất, tự động tăng ID: `ALTER TABLE [table] ADD COLUMN [column] int NOT NULL AUTO_INCREMENT PRIMARY KEY;`
 
-Inserting a record: `INSERT INTO [table] ([column], [column]) VALUES ('[value]', [value]');`
+Chèn một bản ghi: `INSERT INTO [table] ([column], [column]) VALUES ('[value]', [value]');`
 
-MySQL function for datetime input: `NOW()`
 
-Selecting records: `SELECT * FROM [table];`
+Chọn bản ghi: `SELECT * FROM [table];`
 
-Explain records: `EXPLAIN SELECT * FROM [table];`
+Lựa chọn các phần của bản ghi: `SELECT [column], [another-column] FROM [table];`
 
-Selecting parts of records: `SELECT [column], [another-column] FROM [table];`
+Đếm số bảng ghi: `SELECT COUNT([column]) FROM [table];`
 
-Counting records: `SELECT COUNT([column]) FROM [table];`
+Đếm và chọn bản ghi được nhóm: `SELECT *, (SELECT COUNT([column]) FROM [table]) AS count FROM [table] GROUP BY [column];`
 
-Counting and selecting grouped records: `SELECT *, (SELECT COUNT([column]) FROM [table]) AS count FROM [table] GROUP BY [column];`
-
-Selecting specific records: `SELECT * FROM [table] WHERE [column] = [value];` (Selectors: `<`, `>`, `!=`; combine multiple selectors with `AND`, `OR`)
+Chọn bản ghi cụ thể: `SELECT * FROM [table] WHERE [column] = [value];` (Selectors: `<`, `>`, `!=`; combine multiple selectors with `AND`, `OR`)
 
 Select records containing `[value]`: `SELECT * FROM [table] WHERE [column] LIKE '%[value]%';`
 
@@ -72,12 +69,12 @@ Deleting records: `DELETE FROM [table] WHERE [column] = [value];`
 Delete *all records* from a table (without dropping the table itself): `DELETE FROM [table];`
 (This also resets the incrementing counter for auto generated columns like an id column.)
 
-Delete all records in a table: `truncate table [table];`
+Xóa tất cả các bản ghi trong một bảng: `truncate table [table];`
 
-Removing table columns: `ALTER TABLE [table] DROP COLUMN [column];`
+Xóa cột bảng: `ALTER TABLE [table] DROP COLUMN [column];`
 
-Deleting tables: `DROP TABLE [table];`
+Xóa bảng: `DROP TABLE [table];`
 
-Deleting databases: `DROP DATABASE [database];`
+Xóa databases: `DROP DATABASE [database];`
 
 Logout: `exit;`

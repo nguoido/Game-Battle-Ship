@@ -25,21 +25,51 @@
 | WROOM-02   | 18     | 1.5mm  | 2×9         | No   | Etched on PCB | No         | Yes      | 20.0 x 18.0   | 
 | WT8266-S1  | 18     | 1.5mm  | 3×6         | 1    | Etched on PCB | No         | Yes      | 15.0 x 18.6   | 
 
-### Thông tin phần cứng
+
+### ESP8266 
+
+* Đây là một [SoC](https://en.wikipedia.org/wiki/System_on_a_chip) không dây 
+* Nó có GPIO, I2C, ADC, SPI, PWM
+* CPU default is in 80MHz, max can be 160MHz
+* Its based on the RISC architecture
+
+### Tính năng
 ![Screenshot](esp8266.jpg)
 
 
-* Mạch nhỏ, gọn (24.75mm x 14.5mm)
-* Điện áp làm việc 3.3v
-* Tích hợp sẳn anten PCB trace trên module 
-* Có hai led báo hiệu : led nguồn, led TXD
-* Có các chế độ: AP, STA, AT + STA
-* Hổ trợ TCP/UDP
-* Bộ nhớ Flash: 4MB
 * Tiêu chuẩn wifi : 802.11b/g/n, với tần số 2.4GHz,và hổ trợ bảo mật WPA/WPA2
-* Lệnh AT rất đơn giản, dễ dàng sử dụng
+* Mạch nhỏ, gọn (24.75mm x 14.5mm)
+* Tích hợp 10-bit ADC
+* Tích hợp giao thức TCP/IP (hiện tại thời điểm này hỗ trợ ipv4)
+* Tích hợp năng lượng thấp 32-bit MCU
+* SDIO 2.0, SPI, UART, [I2C](Drivers)
+* STBC, 1x1 MIMO, 2x1 MIMO
+* Điện áp làm việc 3.3v
 * Có các chế độ: AP, STA, AT + STA
+* Bộ nhớ Flash: 4MB
+* Lệnh AT rất đơn giản, dễ dàng sử dụng
 * Lập trình trên các ngôn ngữ: C/C++, Micropython, NodeMCU - Lua
 
+## ESP8266 AT
+* ESP8266 kết nối với MCU khác bằng UART
+* MCU gửi AT + CMD thông qua UART để điều khiển ESP8266
 
 ### Tập lệnh AT Command
+AT						Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
+AT+RST					Khởi động lại module	 						`AT+RST`
+AT+GMR					Truy vấn phiên bản Firmware 	 				`AT+GMR`
+
+
+AT+CWMODE = <mode>		Cài đặt chế độ	1 = Station 2 = Access Point  3 = Both							`AT+CWMODE=1`
+AT+CWMODE?				Truy vấn chế độ đã cài đặt	 													`AT+CWMODE?`
+AT+CWMODE =?			Truy vấn các chế độ có thể cài đặt	 											`AT+CWMODE=?`
+AT+CIPMUX = <mode>		Cài đặt số lượng các kênh kết nối	0 = 1 kênh kết nối 1 = Nhiều kênh kết nối	`AT+CIPMUX=1`
+AT+CIPMODE = <mode>		Cài đặt chế độ dữ liệu	0 = transparent  1 = Data								`AT+CIPMODE=1`
+AT+CIPMODE?				Truy vấn chế độ dữ liệu cài đặt	 												`AT+CIPMODE?`
+
+AT+CWJAP = <ssid>, <password>		Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "MLAB", "5678"`
+
+AT+CWJAP?	Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
+AT+CWLAP	Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
+AT+CWQAP	Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`
+AT+CIFSR	Xem địa chỉ IP của module	 				`AT+CIFSR`

@@ -25,8 +25,7 @@
 ## GPIO Driver và thanh ghi
 
 
-###### DrvGPIO_Open() 
-
+#### DrvGPIO_Open() 
 Prototype: int32_t DrvGPIO_Open(Port,Pin,Mode)
 Input:
 Port : E_GPA, E_GPB, E_GPC, E_GPD, E_GPE (Port A,B,C,D,E) .

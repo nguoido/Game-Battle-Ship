@@ -66,7 +66,7 @@ Updating records: `UPDATE [table] SET [column] = '[updated-value]' WHERE [column
 
 Deleting records: `DELETE FROM [table] WHERE [column] = [value];`
 
-Delete *all records* from a table (without dropping the table itself): `DELETE FROM [table];`
+Delete all records from a table (without dropping the table itself): `DELETE FROM [table];`
 (This also resets the incrementing counter for auto generated columns like an id column.)
 
 Xóa tất cả các bản ghi trong một bảng: `truncate table [table];`

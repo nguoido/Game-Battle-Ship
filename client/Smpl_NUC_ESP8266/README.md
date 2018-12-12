@@ -27,10 +27,15 @@
 
 #### DrvGPIO_Open() 
 Prototype: int32_t DrvGPIO_Open(Port,Pin,Mode)
+
 Input:
+
 Port : E_GPA, E_GPB, E_GPC, E_GPD, E_GPE (Port A,B,C,D,E) .
+
 Pin : 0 – 15 ;
+
 Mode:
+
 E_IO_QUASI // Chân chức năng vào ra.
 E_IO_INPUT // Chân có chức năng ngỏ vào.
 E_IO_OUTPUT // Chân có chức năng ngỏ ra .

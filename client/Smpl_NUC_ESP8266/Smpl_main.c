@@ -31,7 +31,6 @@ volatile uint8_t buf_Mac[17];
 volatile uint16_t i = 0, j = 0, checkOK = 0;
 volatile uint8_t flag = 0;
 
-
 void initLed(void);
 void uartConfig(void);
 void uart_sendStr(uint8_t *str);
@@ -39,7 +38,49 @@ void interruptConfig(void);
 void GPIOAB_INT_CallBack(uint32_t GPA_IntStatus, uint32_t GPB_IntStatus);
 void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32_t GPE_IntStatus);
 void delay_time(int time);		     
+void CleanString(uint8_t *str);
+void UART_INT_HANDLE(void);
 
+int main()
+{
+	initLed();
+	interruptConfig();
+	
+	uartConfig();
+	
+	DrvGPIO_Open(E_GPC, 0, E_IO_OUTPUT); 
+	
+	do{
+		buf_Mac[0] = '\0';
+		DrvUART_DisableInt(UART_PORT0, DRVUART_RDAINT); 
+		
+		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CWMODE, strlen(AT_CWMODE));
+		DrvSYS_Delay(1000);
+		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPMUX, strlen(AT_CIPMUX));
+		DrvSYS_Delay(10000);
+		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CWJAP, strlen(AT_CWJAP));
+		delay_time(30);
+		
+		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPSTART, strlen(AT_CIPSTART));
+		delay_time(30);
+		
+		DrvUART_EnableInt(UART_PORT0, DRVUART_RDAINT, (PFN_DRVUART_CALLBACK *)UART_INT_HANDLE); 
+		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPAPMAC, strlen(AT_CIPAPMAC));
+		delay_time(10);
+	}while(checkOK != 5);
+	
+	DrvUART_Write(UART_PORT0,(unsigned char*)AT_CIPSEND_MAC, strlen(AT_CIPSEND_MAC));
+	delay_time(5);
+	
+	
+	for(j; j<17; j++)
+	{
+		DrvUART_Write(UART_PORT0,(unsigned char*)"buf_Mac[j]", 1);
+		DrvSYS_Delay(20);
+	}
+	
+	while(1){}
+}
 
 void UART_INT_HANDLE(void)
 {
@@ -71,47 +112,6 @@ void UART_INT_HANDLE(void)
 }
 
 
-
-int main()
-{
-	initLed();
-	interruptConfig();
-	
-	uartConfig();
-	
-	DrvGPIO_Open(E_GPC, 0, E_IO_OUTPUT); 
-	
-	do{
-		DrvUART_DisableInt(UART_PORT0, DRVUART_RDAINT); 
-		
-		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CWMODE, strlen(AT_CWMODE));
-		DrvSYS_Delay(1000);
-		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPMUX, strlen(AT_CIPMUX));
-		DrvSYS_Delay(10000);
-		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CWJAP, strlen(AT_CWJAP));
-		delay_time(30);
-		
-		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPSTART, strlen(AT_CIPSTART));
-		delay_time(30);
-		
-		DrvUART_EnableInt(UART_PORT0, DRVUART_RDAINT, (PFN_DRVUART_CALLBACK *)UART_INT_HANDLE); 
-		DrvUART_Write(UART_PORT0, (unsigned char*)AT_CIPAPMAC, strlen(AT_CIPAPMAC));
-		delay_time(5);
-	}while(checkOK != 5);
-	
-	DrvUART_Write(UART_PORT0,(unsigned char*)AT_CIPSEND_MAC, strlen(AT_CIPSEND_MAC));
-	delay_time(5);
-	
-	
-	for(j; j<17; j++)
-	{
-		DrvUART_Write(UART_PORT0,(unsigned char*)"buf_Mac[j]", 1);
-		DrvSYS_Delay(20);
-	}
-	
-	while(1){}
-}
-
 void delay_time(int time)		     
 {
 	int i=0;
@@ -138,8 +138,8 @@ void uartConfig(void){
 	myuart.u32BaudRate         = 115200;
 	myuart.u8cDataBits         = DRVUART_DATABITS_8;
 	myuart.u8cStopBits         = DRVUART_STOPBITS_1;
-	myuart.u8cParity         = DRVUART_PARITY_NONE;
-	myuart.u8cRxTriggerLevel = DRVUART_FIFO_1BYTES;
+	myuart.u8cParity        	 = DRVUART_PARITY_NONE;
+	myuart.u8cRxTriggerLevel 	 = DRVUART_FIFO_1BYTES;
 	
 	/* Set UART Configuration */
 	if(DrvUART_Open(UART_PORT0,&myuart) != E_SUCCESS) 

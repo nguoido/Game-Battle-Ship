@@ -68,7 +68,12 @@ AT+CIPMODE = <mode>		Cài đặt chế độ dữ liệu	0 = transparent  1 = Da
 AT+CIPMODE?				Truy vấn chế độ dữ liệu cài đặt	 												`AT+CIPMODE?`
 
 AT+CWJAP = <ssid>, <password>		Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "abc", "5678"`
-AT+CWJAP?	Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
-AT+CWLAP	Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
-AT+CWQAP	Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`
-AT+CIFSR	Xem địa chỉ IP của module	 				`AT+CIFSR`
+AT+CWJAP?		Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
+AT+CWLAP		Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
+AT+CWQAP		Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`
+AT+CIFSR		Xem địa chỉ IP của module	 				`AT+CIFSR`
+AT+CIPCLOSE 	Đóng kết nối TCP 							`AT+CIPCLOSE=0`
+
+AT+CIPSEND		Dùng để gửi dữ liệu cần send xuống ESP8266  `AT+CIPSEND` kết thúc gửi dữ liệu gửi `+++` 
+															`AT+CIPSEND=1` gửi chuỗi có độ dài là 1
+AT+CIPSTART     Kết nối vào 1 TCP/UDP server của 1 server trên internet    `"AT+CIPSTART="TCP","34.205.32.160",3333`

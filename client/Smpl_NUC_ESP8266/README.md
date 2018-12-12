@@ -1,6 +1,8 @@
 # Code tay cầm
 
-| Phiên bản| Số chân   | 
+![Screenshot](nuc140.jpg)
+
+| Chức năng| 		GPIO   | 
 |------------|--------|
 | LED1     | PA.14     |  
 | LED2     | PA.15      |  

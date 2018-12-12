@@ -40,10 +40,10 @@
 * Chức năng : Cấu hình chức năng vào ra của từng chân.
 * Yêu cầu: Không.
 * Ví dụ:
-* * DrvGPIO_Open (E_GPA, 12, E_IO_OUTPUT);
-* * GPIOA->PMD.PMD12 = 0x01;
-* * DrvGPIO_Open (E_GPA, 12, E_IO_INPUT);
-* * GPIOA->PMD.PMD12 = 0x00;
+	* DrvGPIO_Open (E_GPA, 12, E_IO_OUTPUT);
+	* GPIOA->PMD.PMD12 = 0x01;
+	* DrvGPIO_Open (E_GPA, 12, E_IO_INPUT);
+	* GPIOA->PMD.PMD12 = 0x00;
 
 	
 #### DrvGPIO_SetBit();

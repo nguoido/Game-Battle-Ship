@@ -21,14 +21,15 @@
 
 * NUC140 có 5 port với tên là: `GPIOA, GPIOB, GPIOC, GPIOD, GPIOE`
 * Mỗi chân GPIO được cấu hình độc lập bằng phân mềm để làm `input, output`, open-drain or quasi-bidirectional mode
-* GPIO Driver và thanh ghi
+
+## GPIO Driver và thanh ghi
 	
-	* DrvGPIO_Open() 
+* DrvGPIO_Open() 
 
 Prototype: int32_t DrvGPIO_Open(Port,Pin,Mode)
 
 *Input:
- 
+
 Port : E_GPA, E_GPB, E_GPC, E_GPD, E_GPE (Port A,B,C,D,E) .
 
 Pin : 0 – 15 ;

@@ -67,8 +67,7 @@ AT+CIPMUX = <mode>		Cài đặt số lượng các kênh kết nối	0 = 1 kênh
 AT+CIPMODE = <mode>		Cài đặt chế độ dữ liệu	0 = transparent  1 = Data								`AT+CIPMODE=1`
 AT+CIPMODE?				Truy vấn chế độ dữ liệu cài đặt	 												`AT+CIPMODE?`
 
-AT+CWJAP = <ssid>, <password>		Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "MLAB", "5678"`
-
+AT+CWJAP = <ssid>, <password>		Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "abc", "5678"`
 AT+CWJAP?	Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
 AT+CWLAP	Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
 AT+CWQAP	Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`

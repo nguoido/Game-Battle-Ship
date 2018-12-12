@@ -47,16 +47,18 @@
 #### DrvGPIO_SetBit();
 * Prototype: int32_t DrvGPIO_SetBit(Port, Pin).
 * Input : 
-		Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.
-		Pin : 0 – 15.
-		Return : 
-		E_SUCCESS // cấu hình thành công.
-		E_DRVGPIO_ARGUMENT // lập luận không chính xác.
-		Chức năng:
-		Đưa chân lên mức cao.
-		Yêu cầu: Cấu hình chân là INPUT hoặc QUASI.
-		Ví dụ:
-		DrvGPIO_SetBit(E_GPA,1); // Set chân A0 lên 1.
+	* Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.
+	* Pin : 0 – 15.
+* Return : 
+	* E_SUCCESS // cấu hình thành công.
+	* E_DRVGPIO_ARGUMENT // lập luận không chính xác.
+* Chức năng:
+	* Đưa chân lên mức cao.
+* Yêu cầu: Cấu hình chân là INPUT hoặc QUASI.
+* Ví dụ:
+	* DrvGPIO_ClrBit(E_GPA,13);
+GPIOA->DOUT &= ~(0x1<<13);
+
 	
 ###### DrvGPIO_ClrBit()
 	Prototype: int32_t DrvGPIO_ClrBit(Port, Pin);

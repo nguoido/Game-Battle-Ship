@@ -89,7 +89,6 @@ AT+CIFSR		Xem địa chỉ IP của module	 				`AT+CIFSR`
 AT+CIPCLOSE 	Đóng kết nối TCP 							`AT+CIPCLOSE=0`
 
 AT+CIPSEND		Dùng để gửi dữ liệu cần send xuống ESP8266  `AT+CIPSEND` kết thúc gửi dữ liệu gửi `+++` 
-
 															`AT+CIPSEND=1` gửi chuỗi có độ dài là 1
 
 AT+CIPSTART     Kết nối vào 1 TCP/UDP server của 1 server trên internet    `"AT+CIPSTART="TCP","34.205.32.160",3333`

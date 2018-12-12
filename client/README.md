@@ -28,15 +28,18 @@
 ### Thông tin phần cứng
 ![Screenshot](esp8266.jpg)
 
-* WiFi: 2.4 GHz hỗ trợ chuẩn 802.11 b/g/n
-* Điện áp hoạt động: 3.3V
-* Điện áp vào: 5V thông qua cổng USB
-* Số chân I/O: 11 (tất cả các chân I/O đều có Interrupt/PWM/I2C/One-wire, trừ chân D0)
-* Số chân Analog Input: 1 (điện áp vào tối đa 3.3V)
+
+* Mạch nhỏ, gọn (24.75mm x 14.5mm)
+* Điện áp làm việc 3.3v
+* Tích hợp sẳn anten PCB trace trên module 
+* Có hai led báo hiệu : led nguồn, led TXD
+* Có các chế độ: AP, STA, AT + STA
+* Hổ trợ TCP/UDP
 * Bộ nhớ Flash: 4MB
-* Hỗ trợ bảo mật: WPA/WPA2
-* Tích hợp giao thức TCP/IP
+* Tiêu chuẩn wifi : 802.11b/g/n, với tần số 2.4GHz,và hổ trợ bảo mật WPA/WPA2
+* Lệnh AT rất đơn giản, dễ dàng sử dụng
+* Có các chế độ: AP, STA, AT + STA
 * Lập trình trên các ngôn ngữ: C/C++, Micropython, NodeMCU - Lua
-• Giao tiếp UART
+
 
 ### Tập lệnh AT Command

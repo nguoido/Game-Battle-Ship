@@ -98,24 +98,17 @@ void delay_time(int time)
 }
 
 
-void initLed(void){
-	DrvGPIO_Open(E_GPA, 15, E_IO_OUTPUT); // GPC12 pin set to output mode
-	DrvGPIO_ClrBit(E_GPA, 15);            // Goutput Hi to turn off LED
-	DrvGPIO_Open(E_GPA, 14, E_IO_OUTPUT); // GPC12 pin set to output mode
-	DrvGPIO_ClrBit(E_GPA, 14);            // Goutput Hi to turn off LED
+void initLed(void)
+{
+	// GPC12 pin che do output mode
+	DrvGPIO_Open(E_GPA, 15, E_IO_OUTPUT); 
+	// Tat led
+	DrvGPIO_ClrBit(E_GPA, 15);            
+	DrvGPIO_Open(E_GPA, 14, E_IO_OUTPUT);
+	// Bat led
+	DrvGPIO_ClrBit(E_GPA, 14);            
 }
 
-/*
-	void uart_sendStr(uint8_t *str)
-	{
-	while(*str)
-	{
-	DrvUART_Write(UART_PORT0,str,1);
-	DrvSYS_Delay(20000);
-	str++;
-	}
-	}
-*/
 
 void uartConfig(void){
 	STR_UART_T myuart;

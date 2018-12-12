@@ -1,5 +1,6 @@
 # Code tay cầm
 
+## GPIO được dùng
 ![Screenshot](nuc140.jpg)
 
 | Chức năng| 		GPIO   | 
@@ -16,3 +17,40 @@
 |VIBRATE     |PC.0 |
 
 
+## Giới thiệu về GPIO
+
+* NUC140 có 5 port với tên là: `GPIOA, GPIOB, GPIOC, GPIOD, GPIOE`
+* Mỗi chân GPIO được cấu hình độc lập bằng phân mềm để làm `input, output`, open-drain or quasi-bidirectional mode
+* GPIO Driver và thanh ghi
+	
+	* DrvGPIO_Open() 
+ DrvGPIO_Open().
+Prototype: int32_t DrvGPIO_Open(Port,Pin,Mode)
+
+Input: 
+Port : E_GPA, E_GPB, E_GPC, E_GPD, E_GPE (Port A,B,C,D,E) .
+
+Pin : 0 – 15 ;
+
+Mode : 
+
+E_IO_QUASI // Chân chức năng vào ra.
+
+E_IO_INPUT // Chân có chức năng ngỏ vào.
+
+E_IO_OUTPUT // Chân có chức năng ngỏ ra .
+
+Return : 
+E_SUCCESS // cấu hình thành công.
+
+E_DRVGPIO_ARGUMENT // cấu hình không đúng.
+
+Chức năng : Cấu hình chức năng vào ra của từng chân.
+
+Yêu cầu: Không.
+
+Ví dụ:
+
+DrvGPIO_Open(E_GPA,0,E_IO_INPUT); // Cấu hình chân A0 là ngỏ vào.
+
+DrvGPIO_Open(E_GPA,1,E_IO_QUASI); // Cấu hình chân A1 chức năng vào ra.

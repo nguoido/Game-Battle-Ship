@@ -60,34 +60,33 @@ AT&nbsp;Kiểm tra lệnh, luôn trả về "OK" 			 	`AT`
 
 AT+RST&nbsp; Khởi động lại module	 						`AT+RST`
 
-AT+GMR&nbsp;					Truy vấn phiên bản Firmware 	 				`AT+GMR`
+AT+GMR&nbsp;Truy vấn phiên bản Firmware 	 				`AT+GMR`
 
-AT+CWMODE = <mode>&nbsp;		Cài đặt chế độ	1 = Station 2 = Access Point  3 = Both							`AT+CWMODE=1`
+AT+CWMODE = <mode>&nbsp;Cài đặt chế độ	1 = Station 2 = Access Point  3 = Both							`AT+CWMODE=1`
 
-AT+CWMODE?		&nbsp;		Truy vấn chế độ đã cài đặt	 													`AT+CWMODE?`
+AT+CWMODE?&nbsp;Truy vấn chế độ đã cài đặt	 													`AT+CWMODE?`
 
-AT+CWMODE =?	&nbsp;		Truy vấn các chế độ có thể cài đặt	 											`AT+CWMODE=?`
+AT+CWMODE =?&nbsp;Truy vấn các chế độ có thể cài đặt	 											`AT+CWMODE=?`
 
-AT+CIPMUX = <mode>	&nbsp;	Cài đặt số lượng các kênh kết nối	0 = 1 kênh kết nối 1 = Nhiều kênh kết nối	`AT+CIPMUX=1`
+AT+CIPMUX = <mode>&nbsp;Cài đặt số lượng các kênh kết nối	0 = 1 kênh kết nối 1 = Nhiều kênh kết nối	`AT+CIPMUX=1`
 
-AT+CIPMODE = <mode>	&nbsp;	Cài đặt chế độ dữ liệu	0 = transparent  1 = Data								`AT+CIPMODE=1`
+AT+CIPMODE = <mode>&nbsp;Cài đặt chế độ dữ liệu	0 = transparent  1 = Data								`AT+CIPMODE=1`
 
-AT+CIPMODE?		&nbsp;		Truy vấn chế độ dữ liệu cài đặt	 												`AT+CIPMODE?`
+AT+CIPMODE?&nbsp;Truy vấn chế độ dữ liệu cài đặt	 												`AT+CIPMODE?`
 
 
-AT+CWJAP = <ssid>, <password>	&nbsp;	Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "abc", "5678"`
+AT+CWJAP = <ssid>, <password>&nbsp;Kêt nối với 1 mạng wifi	SSID và password     `AT+CWJAP = "abc", "5678"`
 
-AT+CWJAP?	&nbsp;	Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
+AT+CWJAP?&nbsp;Truy vấn mạng wifi đang kết nối	 			`AT+CWJAP?`
 
-AT+CWLAP	&nbsp;	Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
+AT+CWLAP&nbsp;Truy vấn các mạng wifi có thể kết nối	 	`AT+CWLAP`
 
-AT+CWQAP	&nbsp;	Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`
+AT+CWQAP&nbsp;Đóng kế nối wifi với một Access Point	 	`AT+ CWQAP`
 
-AT+CIFSR	&nbsp;	Xem địa chỉ IP của module	 				`AT+CIFSR`
+AT+CIFSR&nbsp;Xem địa chỉ IP của module	 				`AT+CIFSR`
 
-AT+CIPCLOSE &nbsp;	Đóng kết nối TCP 							`AT+CIPCLOSE=0`
+AT+CIPCLOSE&nbsp;Đóng kết nối TCP 							`AT+CIPCLOSE=0`
 
-AT+CIPSEND	&nbsp;	Dùng để gửi dữ liệu cần send xuống ESP8266  `AT+CIPSEND` kết thúc gửi dữ liệu gửi `+++` 
-															`AT+CIPSEND=1` gửi chuỗi có độ dài là 1
+AT+CIPSEND&nbsp;Dùng để gửi dữ liệu cần send xuống ESP8266  `AT+CIPSEND` kết thúc gửi dữ liệu gửi `+++` 												`AT+CIPSEND=1` gửi chuỗi có độ dài là 1
 
-AT+CIPSTART   &nbsp;  Kết nối vào 1 TCP/UDP server của 1 server trên internet    `"AT+CIPSTART="TCP","34.205.32.160",3333`
+AT+CIPSTART&nbsp;Kết nối vào 1 TCP/UDP server của 1 server trên internet    `"AT+CIPSTART="TCP","34.205.32.160",3333`

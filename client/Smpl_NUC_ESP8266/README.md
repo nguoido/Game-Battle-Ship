@@ -40,13 +40,15 @@
 * Chức năng : Cấu hình chức năng vào ra của từng chân.
 * Yêu cầu: Không.
 * Ví dụ:
-	* DrvGPIO_Open(E_GPA,0,E_IO_INPUT); // Cấu hình chân A0 là ngỏ vào.
-	* DrvGPIO_Open(E_GPA,1,E_IO_QUASI); // Cấu hình chân A1 chức năng vào ra.
+* * DrvGPIO_Open (E_GPA, 12, E_IO_OUTPUT);
+* * GPIOA->PMD.PMD12 = 0x01;
+* * DrvGPIO_Open (E_GPA, 12, E_IO_INPUT);
+* * GPIOA->PMD.PMD12 = 0x00;
 
 	
-###### DrvGPIO_SetBit();
-		Prototype: int32_t DrvGPIO_SetBit(Port, Pin).
-		Input : 
+#### DrvGPIO_SetBit();
+* Prototype: int32_t DrvGPIO_SetBit(Port, Pin).
+* Input : 
 		Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.
 		Pin : 0 – 15.
 		Return : 

@@ -10,7 +10,7 @@ Ví dụ đặt tàu hợp lệ:
 ![Imgur](https://i.imgur.com/7zUZIcb.png)
 
 #### Cách chơi
-Dùng tay cầm được thiết kế sẵn kết nối vào hệ thống. Ai kết nối trước sẽ được bắn trước. 
+Dùng tay cầm được thiết kế sẵn kết nối vào hệ thống để chọn phòng rồi chọn tay cầm để vào xếp tàu tiến hành chơi bắn tàu. Ai kết nối trước sẽ được bắn trước. 
 * Bắn trúng!
 
 Nếu bạn bắn trúng tàu đối phương thì thiết bị tay cầm bắn trúng rung mạnh, tay cầm người bị bắn trúng rung nhẹ hơn. Và tàu bị bắn trúng xuất hiện một viên đạn màu đỏ tại vị trí bắn trúng. Và tiếp tục lượt bắn đến khi bắn trật tàu của đối phương.

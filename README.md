@@ -21,3 +21,6 @@ Ngoài ra trò chơi còn chế độ sau 30s người tới lượt không bắ
 
 #### Chiến thắng
 Bạn chiến thắng khi đã đánh chìm tất cả 5 chiến hạm của đối phương
+
+# Truy cập game bắn tàu
+http://choigamenaobanoi.ddns.net:3000/

@@ -98,5 +98,8 @@ AT+CIPSTART&nbsp;&nbsp;Kết nối vào 1 TCP/UDP server của 1 server trên in
 ![Screenshot](arm.jpg)
 
 * NUC140 là chip arm lõi Cortex M0 thuộc series NUC1xx do hãng Nuvoton Đài Loan sản xuất
-* NUC140 là chip arm 32bit có hiệu năng cực kì cao nhưng giá thành tương đương (85k VND tại tula.vn) với các chip 8bit truyền thống như Atmega32, PIC18F452..
-* The NuMicro™ NUC140 Connectivity Line with USB 2.0 full-speed and CAN functions embeds Cortex™-M0 core running up to 50 MHz with 32K/64K/128K-byte embedded flash, 4K/8K/16Kbyte embedded SRAM, and 4K-byte loader ROM for the ISP.. It also equips with plenty of peripheral devices, such as Timers, WatchdogTimer, RTC, PDMA, UART, SPI, I2S, PWM Timer, GPIO, LIN, CAN, PS/2, USB 2.0 FS Device, 12-bit ADC, Analog Comparator, Low VoltageReset Controller and Brown-out Detector.
+* NUC140 là vi điều khiển 32-bit lõi ARM Cortex-M0, trình đơn phần cứng 32 bit, chạy lên tới 50MHz. 
+* Có 4 mức ưu tiên ngắt đầu vào, có 128 KB flash ROM cho bộ nhớ chương trình. 16KB SRAM, 4KB bộ nhớ flash cho nạp chương trình trong hệ thống. 
+* Giao tiếp thiết bị ngoại vi: 8 kênh 12bit ADC, UART nối tiếp tốc độ cao, SPI lên đến 32MHz, I2C lên đến 1MHz; kết nối thiết bị ngoại vi USB 2.0, CAN, LIN… 
+* Thiết bị ngoại vi có tính năng phong phú: PWM, RTC, bộ ngắt nhận dạng Brownout, GPIO, PDMA và 4 bộ Timer 32 bit. 
+* Dải điện áp hoạt động rộng từ 2,5V~5,5V, chống nhiễu tiếng ồn tốt, tích hợp dữ liệu flash, dao động thạch anh nội chính xác ±1% với nhiệt độ phòng, có khả năng bảo mật trên chip, điện áp reset lại mạch thấp.

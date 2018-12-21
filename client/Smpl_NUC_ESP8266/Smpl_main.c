@@ -1,16 +1,3 @@
-/***********************************************************
-	LED1 -- 26 -- PA.14 -- D3
-	LED2 -- 25 -- PA.15 -- D4
-	BTN_OK -- 28 -- PA.12
-	BTN_CANCEL -- 27 -- PA.13
-	BTN_LEFT -- 21 -- PC.3
-	BTN_RIGHT -- 22 -- PC.2
-	BTN_UP -- 20 -- PD.7
-	BTN_DOWN -- 23 -- PC.1
-	BTN_1 -- RESET NUC
-	VIBRATE --- 	PC.0
-************************************************************/
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -29,13 +16,13 @@
 #define AT_CIPSEND_MAC "AT+CIPSEND=17\r\n"
 #define AT_TEST_MAC "a2:20:a6:13:1f:48"
 
-#define  ONESHOT  0   // counting and interrupt when reach TCMPR number, then stop
+#define  PWM_CLKSRC_SEL   3        //0: 12M, 1:32K, 2:HCLK, 3:22M
+#define  PWM_PreScaler    21      // clock is divided by (PreScaler + 1)
+#define  Cycle        219 
 
 uint8_t buf_Mac[18];
 volatile uint16_t i = 0, checkOK = 0;
 volatile uint8_t flag = 0;
-uint32_t Timer_High;
-uint32_t Timer_Low ;
 
 void uartConfig(void);
 void interruptConfig(void);
@@ -44,10 +31,8 @@ void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32
 void delay_time(int time);		     
 void UART_INT_HANDLE(void);
 void CleanString(uint8_t *str);
-void InitTIMER0(void);
-void vibration(uint32_t high, uint32_t low);
-volatile uint8_t Timers_Vibration = 0;
-volatile uint8_t Timer_Cnt = 1;
+void Vibrate(int time, int percent);
+void InitPWM();
 
 int main()
 {
@@ -91,73 +76,37 @@ int main()
 }
 
 
-void TMR0_IRQHandler(void) // Timer0 interrupt subroutine 
-{	
-	if(Timer_Cnt <= 6)
-	{
-		if ((Timer_Cnt %2) == 0) 
-		{
-			DrvGPIO_SetBit(E_GPA,14);
-			DrvGPIO_ClrBit(E_GPC,0);
-			TIMER0->TCMPR = Timer_High;	
-			TIMER0->TISR.TIF = 1;			
-			TIMER0->TCSR.MODE = ONESHOT;
-			TIMER0->TCSR.CEN = 1;
-			Timer_Cnt++;
-		}
-		else
-		{
-			DrvGPIO_SetBit(E_GPC,0);
-			DrvGPIO_ClrBit(E_GPA,14);
-			TIMER0->TCMPR = Timer_Low;
-			TIMER0->TISR.TIF = 1;
-			TIMER0->TCSR.MODE = ONESHOT; 
-			TIMER0->TCSR.CEN = 1;			
-			Timer_Cnt++;
-		}
-	
+void InitPWM()
+{
+	SYS->GPAMFP.PWM3_I2SMCLK=1;  // Enable PWM3 multi-function pin
+	SYSCLK->CLKSEL1.PWM23_S = PWM_CLKSRC_SEL; // Select 22Mhz for PWM clock source		
+	SYSCLK->APBCLK.PWM23_EN =1;  // Enable PWM2 & PWM3 clock	
+	PWMA->PPR.CP23=1;			      // Prescaler 0~255, Setting 0 to stop output clock
+	PWMA->CSR.CSR3=0;			      // PWM clock = clock source/(Prescaler + 1)/divider
+	PWMA->PCR.CH3MOD=1;			    // 0:One-shot mode, 1:Auto-load mode
+															// CNR and CMR will be auto-cleared after setting CH2MOD form 0 to 1.	
+	PWMA->CNR3=0xFFFF;           // CNR : counting down   // PWM output high if CMRx+1 >= CNR
+	PWMA->CMR3=0xFFFF;		        // CMR : fix to compare  // PWM output low  if CMRx+1 <  CNR
+	PWMA->PCR.CH3INV=0;          // Inverter->0:off, 1:on
+	PWMA->PCR.CH3EN=1;			      // PWM function->0:Disable, 1:Enable
+	PWMA->POE.PWM3=1;			      // Output to pin->0:Diasble, 1:Enable		
+}
+
+void Vibrate(int time, int percent)
+{
+	uint16_t HiTime = percent*Cycle/100;
+	if(percent==0){
+		HiTime=1;
 	}
-
-	else
-		{
-			NVIC_DisableIRQ(TMR0_IRQn);	//Enable Timer0 Interrupt
-			Timer_Cnt = 0 ;
-		}
+	PWMA->CSR.CSR3 = 0;             // diver factor = 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
+	PWMA->PPR.CP23 = PWM_PreScaler; // set PreScaler
+	PWMA->CNR3 = Cycle;    					// set CNR
+	PWMA->CMR3 = HiTime -1;     		// set CMR
+	PWMA->POE.PWM3=1;
 }
 
 
-void vibration(uint32_t high, uint32_t low)
-{
-	// Rung
-	Timer_High = high;
-	Timer_Low = low;
-	NVIC_EnableIRQ(TMR0_IRQn);	//Enable Timer0 Interrupt
-	TIMER0->TCSR.CEN = 1;		//Enable Timer0
-}
 
-void InitTIMER0(void)
-{
-	/* Step 1. Enable and Select Timer clock source */          
-	SYSCLK->CLKSEL1.TMR0_S = 0x07;	//Select 22.1184 MHz for Timer0 clock source
-	SYSCLK->APBCLK.TMR0_EN = 1;	//Enable Timer0 clock source
-	
-	/* Step 2. Select Operation mode */	
-	TIMER0->TCSR.MODE = ONESHOT;  //Select operation mode
-	
-	/* Step 3. Select Time out period = (Period of timer clock input) * (8-bit Prescale + 1) * (24-bit TCMP)*/
-	TIMER0->TCSR.PRESCALE = 239;	// Set Prescale [0~255]
-	TIMER0->TCMPR = 9216;		    // Set TCMPR [0~16777215]
-	//Timeout period = (1 / 22.1184MHz * 10^6) * ( 239 + 1 ) * 9210 = 0.1 sec
-	
-	/* Step 4. Enable interrupt */
-	TIMER0->TCSR.IE = 1;
-	TIMER0->TISR.TIF = 1;		//Write 1 to clear for safty		
-	NVIC_EnableIRQ(TMR0_IRQn);	//Enable Timer0 Interrupt
-	
-	/* Step 5. Enable Timer module */
-	TIMER0->TCSR.CRST = 1;	//Reset up counter
-	TIMER0->TCSR.CEN = 1;		//Enable Timer0
-}
 
 void UART_INT_HANDLE(void)
 {
@@ -170,15 +119,14 @@ void UART_INT_HANDLE(void)
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//delay_time(1);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			vibration(46080,46080);	// 1.2s rung, 0.8s tat
+			Vibrate(1,400);
 		}
 		else if(bInChar[0] == '!')
 		{
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//DrvSYS_Delay(300000);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			//vibration(51840, 34560); //0.6s 0.4s
-			vibration(73728,18432);		// 0.6s rung, 0.4s tat
+			Vibrate(1,100);
 		}
 		else if(bInChar[0] == '"')
 		{
@@ -195,7 +143,6 @@ void UART_INT_HANDLE(void)
 		}
 	}
 }
-
 
 
 void CleanString(uint8_t *str)

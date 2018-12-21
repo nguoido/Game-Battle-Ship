@@ -71,6 +71,7 @@ function getUserByUsername(username) {
 	return false;
 }
 
+
 module.exports = {
 	addUser: addUser,
 	getUserByUsername: getUserByUsername,

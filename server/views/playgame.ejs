@@ -1,130 +1,135 @@
-    <title>NodeBattleship</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/site.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NodeBattleship</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/site.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body >
-<div class="container">
-    <div class="row vertical-center-row">
-        <div class="col-md-12">
-
-
-
-            <!-- Disconnected from server -->
-            <div id="disconnected" style="display:none;">
-                <div class="row">
-                    <div class="col-sm-4 col-sm-offset-4 text-center">
-                        <div class="alert alert-danger">
-                            <p>Not connected to server.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Waiting room -->
-            <div id="waiting-room" style="display:none;">
-                <div class="row">
-                    <div class="col-sm-4 col-sm-offset-4 text-center">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Waiting Room</div>
-                            <div class="panel-body">
-                                <p>You are connected to the server.</p>
-                                <p>Waiting for another player...</p>
-<!--                                 <button type="button" id="bt1" onclick="myFunction1()" style="display:none;">gamepad 1</button>
-                                <button type="button" id="bt2" onclick="myFunction2()" style="display:none;">refresh gamepad</button> -->
-                                <button type="button" id="bt3" onclick="myFunction6()" >refresh gamepad</button>
-                                <p id="gamepad_selected"></p>
-                                <div class="list_gamepad">
-                                    <div id="box_gamepad"></div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- rooms -->
-            <div id="rooms" style="display:none;" >
-                <div class="row">
-                    <div class="col-sm-4 col-sm-offset-4 text-center">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">List Room</div>
-                            <div class="panel-body">
-                                <strong>Username</strong> <%= data.username %> <br>
-                                <button type="button" id="bt" onclick="myFunction3()" >Create room</button>
-                                <button type="button" id="bt" onclick="myFunction4()" >Refresh room</button>
-                                <!-- <p id="gamepad_selected"></p> -->
-                                <div class="listRoom">
-                                    <div id="boxContent"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Game -->
-            <div id="game" style="display:none;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Battleship Game #<span id="game-number"></span></div>
-
-                            <div class="panel-body">
-                                   
-                                <!-- Player grids -->
-                                <div class="row">
-                                     <h3 id="time" style="text-align:center;"> Time:</h3>
-                                    <div class="col-md-6 player-grid text-center">
-                                        <h3 id="user_you"> Player <%= data.username %></h3>
-                                        <h3 id="score_you">Score : 0</h3>
-
-                                        <canvas id="canvas-grid1" width="400" height="400">Browser does not support canvas.</canvas>
-                                    </div>
-
-
-
-                                    <div class="col-md-6 player-grid text-center">
-                                        <h3 id="user_opponent"> </h3>
-                                        <h3 id="score_opponent">Score : 0</h3>
-                                        <canvas id="canvas-grid2" width="400" height="400">Browser does not support canvas.</canvas>
-                                    </div>
-                                </div>
-                                
-                                
-                            </div>
-
-                            <ul class="list-group">
-                                <!-- Status -->
-                                <li class="list-group-item text-center" id="turn-status"></li>
-                               
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script> -->
-    <!--     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.js"></script> -->
-		<script src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="/js/game.js"></script>
-		<script type="text/javascript" src="/js/client.js"></script>
-							
-		
-
+	    
+	<div class="container">
+		<div class="row vertical-center-row">
+			<div class="col-md-12">
+				
+				<!-- <button onclick="myFunction10()">Reload page</button> -->
+				
+				<!-- Disconnected from server -->
+				<div id="disconnected" style="display:none;">
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4 text-center">
+							<div class="alert alert-danger">
+								<p>Not connected to server.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Waiting room -->
+				<div id="waiting-room" style="display:none;">
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4 text-center">
+							<div class="panel panel-primary">
+								<div class="panel-heading" id="id_room">Waiting Room</div>
+								<div class="panel-body">
+									<p>You are connected to the server.</p>
+									<p>Waiting for another player...</p>
+									<!-- <button type="button" id="bt3" onclick="myFunction6()" >refresh gamepad</button> -->
+									<p id="gamepad_selected"></p>
+									<div class="list_gamepad">
+										<div id="box_gamepad"></div>
+									</div>
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!-- rooms -->
+				<div id="rooms" style="display:none;" >
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4 text-center">
+							<div class="panel panel-primary">
+								<div class="panel-heading">List Room</div>
+								<div class="panel-body">
+									
+									<p>
+										<strong>Username</strong> <%= data.username %> <br>
+									</p>
+									<p>
+										<button type="button" id="bt_create" onclick="myFunction3()" >Create room</button>
+										<button type="button" id="bt_refresh" onclick="myFunction4()" >Refresh room</button>
+									</p>
+									
+									<!-- <p id="gamepad_selected"></p> -->
+									<div class="listRoom">
+										<div id="boxContent"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<!-- Game -->
+				<div id="game" style="display:none;">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">Battleship Game #<span id="game-number"></span></div>
+								<button type="button" id="bt_outgame" onclick="myFunction11()" >Quit game</button>
+								<div class="panel-body">
+									
+									<!-- Player grids -->
+									<div class="row">
+										<h3 id="time" style="text-align:center;"> Time:</h3>
+										<div class="col-md-6 player-grid text-center">
+											<h3 id="user_you"> Player <%= data.username %></h3>
+											<h3 id="score_you">Score : 0</h3>
+											
+											<canvas id="canvas-grid1" width="400" height="400">Browser does not support canvas.</canvas>
+										</div>
+										
+										
+										<div class="col-md-6 player-grid text-center">
+											<h3 id="user_opponent"> </h3>
+											<h3 id="score_opponent">Score : 0</h3>
+											<canvas id="canvas-grid2" width="400" height="400">Browser does not support canvas.</canvas>
+										</div>
+									</div>
+									
+									
+								</div>
+								
+								<ul class="list-group">
+									<!-- Status -->
+									<li class="list-group-item text-center" id="turn-status"></li>
+									
+								</ul>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
 	
-	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/game.js"></script>
+	<script type="text/javascript" src="/js/client.js"></script>
+	
+	
+	<!-- chan back lai -->
+	<script language="javascript" type="text/javascript">
+		window.history.forward();
+	</script>
+	
+</body>
 </html>

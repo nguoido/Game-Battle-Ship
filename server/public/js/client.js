@@ -4,6 +4,17 @@
 var socket = io();
 
 
+function myFunction11(){
+        socket.emit('leave');
+    }
+    
+function myFunction10() {
+    socket.emit('infor');
+}
+
+
+
+
 //chon tay cam 1
     function myFunction1() {
         socket.emit('change_turn');
@@ -36,7 +47,8 @@ var socket = io();
         
     }
 
-    //khi nhan nut thi refresh gamepad
+//khi nhan nut thi refresh gamepad
+//báo cho server cung cấp danh sách tay cầm
     function myFunction6(){
 
        socket.emit('server_gamepad');
@@ -64,42 +76,59 @@ var socket = io();
 
 $(function() {
 
+    socket.on('disconnect_gamepad',function(data){
+        alert('Disconnect gamepad with mac : '+ data);
+
+    });
 
 
+//hiển thị tên đối thủ 
     socket.on('showuser_opp',function(data){
         document.getElementById("user_opponent").innerHTML = data;
 
     });
 
+
+//hiển thị điểm chéo nhau giữa 2 người chơi
+//tab hiện tại 
     socket.on('score',function(data){
         document.getElementById("score_you").innerHTML = "Score : " + data.score_you;
         document.getElementById("score_opponent").innerHTML = "Score : " + data.score_opponent;  
 
     });
-
+//tab còn lại
         socket.on('score_opp',function(data){
         document.getElementById("score_you").innerHTML = "Score : " + data.score_opponent;
         document.getElementById("score_opponent").innerHTML = "Score : " + data.score_you;  
 
     });
 
+
+//không chọn tay cầm
     socket.on('not_select_gamepad',function(){
         //alert('selected gamepad');
-
     });
 
+//giao diện chọn tay cầm.
+//input :chỉ số vị trí tay cầm trong mảng tay cầm
+//output:thông báo và đánh dấu nút đã chọn
     socket.on('select_gamepad',function(index){
-
-        status_gamepad(index);
+        status_gamepad(index);//đánh dấu nút 
         var y=index+1;
         document.getElementById("gamepad_selected").innerHTML = "You selected gamepad " +y;
-
     });
 
 
-    //nhận tay cầm 
+//hiển thị tay cầm 
+//input:danh sách tay cầm gồm 3 mảng con.
+//1 là id     : chứa địa chỉ ip và port tay cầm
+//2 là status : trạng thái tay cầm (= 0: chưa chọn, = 1: đã chọn)
+//3 là player : chứa socket id của người chơi
+//xử lý:duyệt mảng,tạo button tay cầm và kiểm tra trạng thái button (khi button đã chọn thì sẽ disable button đó )
     socket.on('update_gamepad',function(data){
+
         $('#box_gamepad').html("");
+        $('#gamepad_selected').html("");
          var c=0,temp;
         for(;c<data.id.length;c++)
         {
@@ -116,22 +145,26 @@ $(function() {
 
 
 
-    //khi phòng đủ 2 người thì không cho phép vào phòng
-    socket.on('not_joinRoom',function(index){
-        //alert('Full room.Please choose another room');
-        
+//khi phòng đủ 2 người thì không cho phép vào phòng
+//input : chỉ số phòng đó 
+    socket.on('not_joinRoom',function(index){        
         var x = document.getElementById(index);
         x.disabled=true;
         x.style.color="red";
 
     });
 
+  socket.on('join_r',function(data){
+    socket.emit('check_room',data);
 
-    //khi phòng chưa đủ 2 người thì vào chơi
-    socket.on('joinRoom',function(){
+  });
+//khi phòng chưa đủ 2 người thì vào chơi
+//input : chỉ số phòng đó 
+    socket.on('joinRoom',function(data){
         //giao diện
         $('#rooms').hide();
         $('#waiting-room').show();
+        document.getElementById("id_room").innerHTML = "Waiting room: " + data;
         //xử lý
         myFunction6();//show list gamepad
 
@@ -199,6 +232,8 @@ $(function() {
         var x = document.getElementById("user_you").textContent; 
         socket.emit('user_opp',x);
 
+
+
     })
 
     /**
@@ -207,10 +242,8 @@ $(function() {
     socket.on('update', function(gameState) {
         Game.setTurn(gameState.turn);
         Game.updateGrid(gameState.gridIndex, gameState.grid);
-        if( Game.showtime()==1)
-        {
-            alert('doi luot');
-        }
+        Game.showtime();
+
     });
 
 
@@ -226,7 +259,8 @@ $(function() {
      */
     socket.on('leave', function() {
         $('#game').hide();
-        $('#waiting-room').show();
+        $('#waiting-room').hide();
+        $('#rooms').show();
     });
 
 

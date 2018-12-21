@@ -37,7 +37,7 @@ var time;
 function showtime(){
     if(turn)
     {
-        time = 20;
+        time = 30;
         myVar = setInterval(myTimer, 1000);
 
          
@@ -63,73 +63,12 @@ function showtime(){
 
 
 
-
-// phim may tinh
-    // document.addEventListener('keydown', function(e) {
-    //     if (turn) {
-
-    //         stepnew_old(toado.y, toado.x, 1, 1);
-
-    //         if (e.which == 39) //right
-    //         {
-    //             stepnew_old(toado.y, toado.x, 1, 0);
-
-    //             toado.x = toado.x + 1;
-    //             if (toado.x > (gridCols - 1)) {
-    //                 toado.x = 0;
-    //             }
-    //             stepnew_old(toado.y, toado.x, 1, 1);
-    //         }
-    //         if (e.which == 37) //left
-    //         {
-    //             stepnew_old(toado.y, toado.x, 1, 0);
-
-    //             toado.x = toado.x - 1;
-    //             if (toado.x < 0) {
-    //                 toado.x = gridCols - 1;
-    //             }
-    //             stepnew_old(toado.y, toado.x, 1, 1);
-    //         }
-    //         if (e.which == 38) //up
-    //         {
-    //             stepnew_old(toado.y, toado.x, 1, 0);
-
-    //             toado.y = toado.y - 1;
-    //             if (toado.y < 0) {
-    //                 toado.y = gridRows - 1;
-    //             }
-    //             stepnew_old(toado.y, toado.x, 1, 1);
-    //         }
-    //         if (e.which == 40) //down
-    //         {
-    //             stepnew_old(toado.y, toado.x, 1, 0);
-
-    //             toado.y = toado.y + 1;
-    //             if (toado.y > (gridCols - 1)) {
-    //                 toado.y = 0;
-    //             }
-    //             stepnew_old(toado.y, toado.x, 1, 1);
-    //         }
-
-    //         if (e.which == 79) //nut o ban
-    //         {
-    //             //if(grid[1].shots[toado.x * gridCols + toado.y] === 0)
-    //             sendShot(toado);
-    //         }
-    //     }
-    // });
-
-
     function dichuyen_shoot(e) {
         if (turn) {
 
-            clearInterval(myVar);
-            if(frist==1)
-            {
-                stepnew_old(toado.y, toado.x, 1, 1);
-                frist=frist+1;
-            }
-            else{
+            
+
+            
             if (e == 'r') //right
             {
                 stepnew_old(toado.y, toado.x, 1, 0);
@@ -175,8 +114,9 @@ function showtime(){
             {
                 //if(grid[1].shots[toado.x * gridCols + toado.y] === 0)
                 sendShot(toado);
+                clearInterval(myVar);
             }
-        }
+        
 
         }
     };
@@ -229,6 +169,7 @@ function showtime(){
 
         drawGrid(0);
         drawGrid(1);
+        stepnew_old(toado.y, toado.x, 1, 1);
     };
 
 
@@ -258,9 +199,11 @@ function showtime(){
         if (isWinner) {
             $('#turn-status').removeClass('alert-opponent-turn').removeClass('alert-your-turn')
                 .addClass('alert-winner').html('You won! <a href="#" class="btn-leave-game">Play again</a>.');
+                 alert("You won!");
         } else {
             $('#turn-status').removeClass('alert-opponent-turn').removeClass('alert-your-turn')
-                .addClass('alert-loser').html('You lost. <a href="#" class="btn-leave-game">Play again</a>.');
+                .addClass('alert-loser').html('You lose. <a href="#" class="btn-leave-game">Play again</a>.');
+                 alert("You lose!");
         }
         $('.btn-leave-game').click(sendLeaveRequest);
     }
@@ -356,16 +299,21 @@ function showtime(){
         {
             squareX = y * (squareWidth + gridBorder) + gridBorder + shipPadding;
             squareY = x * (squareHeight + gridBorder) + gridBorder + shipPadding;
-            context[gridIndex].fillStyle = '#4477FF';
-            context[gridIndex].fillRect(squareX, squareY, squareWidth - shipPadding * 2, squareHeight - shipPadding * 2);
+            // context[gridIndex].fillStyle = '#4477FF';
+            // context[gridIndex].fillRect(squareX, squareY, squareWidth - shipPadding * 2, squareHeight - shipPadding * 2);
+
+            context[gridIndex].strokeStyle = '#770000';
+            context[gridIndex].strokeRect(y*40, x*40, 40, 40);
         }
         if (check === 0) //step old
         {
-            squareX = y * (squareWidth + gridBorder) + gridBorder + shipPadding;
-            squareY = x * (squareHeight + gridBorder) + gridBorder + shipPadding;
+            squareX = y * (squareWidth + gridBorder) + gridBorder ;
+            squareY = x * (squareHeight + gridBorder) + gridBorder ;
             if (grid[gridIndex].shots[x * gridCols + y] === 0) {
-                context[gridIndex].fillStyle = '#7799FF';
-                context[gridIndex].fillRect(squareX, squareY, squareWidth - shipPadding * 2, squareHeight - shipPadding * 2);
+                context[gridIndex].strokeStyle = '#000000';
+
+                // context[gridIndex].fillRect(squareX, squareY, squareWidth - shipPadding * 2, squareHeight - shipPadding * 2);
+                context[gridIndex].strokeRect(y*40, x*40, 40, 40);
             }
 
             if (grid[gridIndex].shots[x * gridCols + y] === 1) {

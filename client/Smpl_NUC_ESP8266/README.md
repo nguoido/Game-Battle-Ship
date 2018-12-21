@@ -6,7 +6,6 @@
 | Chức năng| 		GPIO   | 
 |------------|--------|
 | LED1     | PA.14     |  
-| LED2     | PA.15      |  
 |BTN_OK      | PA.12     |  
 |BTN_CANCEL      |PA.13      | 
 | BTN_LEFT     | PC.3 |
@@ -14,7 +13,7 @@
 | BTN_UP     | PD.7     | 
 | BTN_DOWN  | PC.1     | 
 |BTN_1     |  RESET NUC |
-|VIBRATE     |PC.0 |
+|VIBRATE     |PA.15 |
 
 
 ## Giới thiệu về GPIO
@@ -58,18 +57,3 @@
 * Ví dụ:
 	* DrvGPIO_ClrBit(E_GPA,13);
 GPIOA->DOUT &= ~(0x1<<13);
-
-	
-###### DrvGPIO_ClrBit()
-	Prototype: int32_t DrvGPIO_ClrBit(Port, Pin);
-	Input : 
-	Port: E_GPA, E_GPB, E_GPC, E_GPD, E_GPE.
-	Pin : 0 – 15.
-	Return : 
-	E_SUCCESS // Hoạt động thành công.
-	E_DRVGPIO_ARGUMENT // lập luận không chính xác.
-	Chức năng : 
-	Đưa chân xuống mức thấp.
-	Yêu cầu : Cấu hình chân là INPUT hoặc QUASI.
-	Ví dụ : 
-	DrvGPIO_ClrBit(E_GPC_15) ; // đưa chân C15 xuống 0

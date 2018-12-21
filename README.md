@@ -1,3 +1,6 @@
+# Truy cập game bắn tàu
+http://choigamenaobanoi.ddns.net:3000/
+
 # Giới thiệu về game bắn tàu
 Hai người chơi truy cập vào trang web trò chơi và đăng nhập tài khoản đã đăng kí để vào trò chơi. Tiến hành đặt hai bản đồ sao cho không ai có thể nhìn thấy mặt biển của đối phương. Bí mật đặt 5 tàu chiến của bạn trong vùng biển của chính mình. Đối phương làm tương tự.
 Luật đặt tàu chiến:
@@ -22,5 +25,3 @@ Ngoài ra trò chơi còn chế độ sau 30s người tới lượt không bắ
 #### Chiến thắng
 Bạn chiến thắng khi đã đánh chìm tất cả 5 chiến hạm của đối phương
 
-# Truy cập game bắn tàu
-http://choigamenaobanoi.ddns.net:3000/

@@ -16,9 +16,6 @@
 #define AT_CIPSEND_MAC "AT+CIPSEND=17\r\n"
 #define AT_TEST_MAC "a2:20:a6:13:1f:48"
 
-#define  PWM_CLKSRC_SEL   3        //0: 12M, 1:32K, 2:HCLK, 3:22M
-#define  PWM_PreScaler    21      // clock is divided by (PreScaler + 1)
-#define  Cycle        219 
 
 uint8_t buf_Mac[18];
 volatile uint16_t i = 0, checkOK = 0;
@@ -31,7 +28,7 @@ void GPIOCDE_INT_CallBack(uint32_t GPC_IntStatus, uint32_t GPD_IntStatus, uint32
 void delay_time(int time);		     
 void UART_INT_HANDLE(void);
 void CleanString(uint8_t *str);
-void Vibrate(int time, int percent);
+void Vibrate(uint32_t PWM_frequency, uint8_t PWM_duty);
 void InitPWM();
 
 int main()
@@ -92,19 +89,34 @@ void InitPWM()
 	PWMA->POE.PWM3=1;			      // Output to pin->0:Diasble, 1:Enable		
 }
 
-void Vibrate(int time, int percent)
+void Vibrate(uint32_t PWM_frequency, uint8_t PWM_duty)
 {
-	uint16_t HiTime = percent*Cycle/100;
-	if(percent==0){
-		HiTime=1;
+	uint8_t  PWM_PreScaler;
+	uint16_t PWM_ClockDivider;
+	uint16_t CNR0, CMR0;
+	uint32_t PWM_Clock;
+	
+ 	if (PWM_freq==0) 
+		PWMA->POE.PWM3=0;
+	else             
+		PWMA->POE.PWM3=1;
+	
+	if (PWM_frequency != 0) 
+	{
+		PWM_Clock = PWM_CLKSRC_SEL; // Clock source = 22.1184MHz
+		PWM_PreScaler = 5;    // clock is divided by (PreScaler + 1)
+		PWM_ClockDivider = 2;  // 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
+		//PWM_Freq = PWM_Clock / (PWM_PreScaler + 1) / PWM_ClockDivider / (PWM_CNR0 + 1); 
+		CNR0 = PWM_Clock / PWM_frequency / (PWM_PreScaler + 1) / PWM_ClockDivider - 1;
+		// Duty Cycle = (CMR0+1) / (CNR0+1)
+		CMR0 = (CNR0 +1) * PWM_duty /100  - 1;
+		//PWM setting	  
+		PWMB->CSR.CSR0 = 0;                // 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
+		PWMB->PPR.CP01 = PWM_PreScaler;    // set PreScaler
+		PWMB->CNR0 = CNR0;	 			   // set CNR0
+		PWMB->CMR0 = CMR0;				   // set CMR0
 	}
-	PWMA->CSR.CSR3 = 0;             // diver factor = 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
-	PWMA->PPR.CP23 = PWM_PreScaler; // set PreScaler
-	PWMA->CNR3 = Cycle;    					// set CNR
-	PWMA->CMR3 = HiTime -1;     		// set CMR
-	PWMA->POE.PWM3=1;
 }
-
 
 
 
@@ -119,14 +131,14 @@ void UART_INT_HANDLE(void)
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//delay_time(1);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			Vibrate(1,100);
+			Vibrate(2,100);
 		}
 		else if(bInChar[0] == '!')
 		{
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//DrvSYS_Delay(300000);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			Vibrate(1,40);
+			Vibrate(1,50);
 		}
 		else if(bInChar[0] == '"')
 		{

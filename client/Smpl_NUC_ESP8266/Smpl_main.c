@@ -20,6 +20,7 @@
 uint8_t buf_Mac[18];
 volatile uint16_t i = 0, checkOK = 0;
 volatile uint8_t flag = 0;
+#define  PWM_CLKSRC_SEL   3        //0: 12M, 1:32K, 2:HCLK, 3:22M
 
 void uartConfig(void);
 void interruptConfig(void);
@@ -103,7 +104,7 @@ void Vibrate(uint32_t PWM_frequency, uint8_t PWM_duty)
 	
 	if (PWM_frequency != 0) 
 	{
-		PWM_Clock = PWM_CLKSRC_SEL; // Clock source = 22.1184MHz
+		PWM_Clock =  22118400; // Clock source = 22.1184MHz
 		PWM_PreScaler = 5;    // clock is divided by (PreScaler + 1)
 		PWM_ClockDivider = 2;  // 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
 		//PWM_Freq = PWM_Clock / (PWM_PreScaler + 1) / PWM_ClockDivider / (PWM_CNR0 + 1); 

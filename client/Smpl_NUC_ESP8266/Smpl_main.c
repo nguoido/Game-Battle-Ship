@@ -119,14 +119,14 @@ void UART_INT_HANDLE(void)
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//delay_time(1);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			Vibrate(1,400);
+			Vibrate(1,100);
 		}
 		else if(bInChar[0] == '!')
 		{
 			//DrvGPIO_ClrBit(E_GPC,0); 		// GPB11 = 0 to turn on Buzzer
 			//DrvSYS_Delay(300000);  				 		// Delay 
 			//DrvGPIO_SetBit(E_GPC,0); 		// GPB11 = 1 to turn off Buzzer	
-			Vibrate(1,100);
+			Vibrate(1,40);
 		}
 		else if(bInChar[0] == '"')
 		{

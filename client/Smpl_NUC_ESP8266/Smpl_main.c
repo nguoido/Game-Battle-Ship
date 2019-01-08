@@ -112,10 +112,10 @@ void Vibrate(uint32_t PWM_frequency, uint8_t PWM_duty)
 		// Duty Cycle = (CMR0+1) / (CNR0+1)
 		CMR0 = (CNR0 +1) * PWM_duty /100  - 1;
 		//PWM setting	  
-		PWMB->CSR.CSR0 = 0;                // 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
-		PWMB->PPR.CP01 = PWM_PreScaler;    // set PreScaler
-		PWMB->CNR0 = CNR0;	 			   // set CNR0
-		PWMB->CMR0 = CMR0;				   // set CMR0
+		PWMA->CSR.CSR0 = 0;                // 0: 1/2, 1: 1/4, 2: 1/8, 3: 1/16, 4: 1
+		PWMA->PPR.CP01 = PWM_PreScaler;    // set PreScaler
+		PWMA->CNR0 = CNR0;	 			   // set CNR0
+		PWMA->CMR0 = CMR0;				   // set CMR0
 	}
 }
 
